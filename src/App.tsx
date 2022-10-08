@@ -13,6 +13,9 @@ import { IDataAnalys } from "./utils/models";
 const App: React.FC = () => {
   const [value, setValue] = React.useState<string>("0");
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (value == "") {
+      setValue("1");
+    }
     setValue(e.target.value);
     setArrNum(gauss.getArrayRandomNumber(+value, +minValue, +maxValue));
   };
@@ -34,15 +37,14 @@ const App: React.FC = () => {
     dispersion: 1,
     averSqrtDev: 1,
   });
-  React.useEffect(() => {
-    setArrNum(gauss.getArrayRandomNumber(+value, +minValue, +maxValue));
-    setDataAnalys({
-      pointCount: arrNum.length,
-      mathExpec: gauss.getAverageNum(arrNum),
-      dispersion: gauss.getDispersion(arrNum),
-      averSqrtDev: gauss.getAverSqrtDeviation(arrNum),
-    });
-  }, [minValue, maxValue, value]);
+  // React.useEffect(() => {
+  //   setDataAnalys({
+  //     pointCount: arrNum.length,
+  //     mathExpec: gauss.getAverageNum(arrNum),
+  //     dispersion: gauss.getDispersion(arrNum),
+  //     averSqrtDev: gauss.getAverSqrtDeviation(arrNum),
+  //   });
+  // }, [minValue, maxValue, value]);
   const handleClickBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (Number(value) && Number(minValue) && Number(maxValue)) {
       setArrNum(gauss.getArrayRandomNumber(+value, +minValue, +maxValue));
